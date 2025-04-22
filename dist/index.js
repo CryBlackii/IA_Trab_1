@@ -78,7 +78,7 @@ function printarMapa(mapa, robo, chegada) {
                 linha += "🤖";
             }
             else {
-                linha += mapa[i][j] === 1 ? "🗑️" : "🟫";
+                linha += mapa[i][j] === 1 ? "🗑️ " : "🟫";
             }
         }
         tela += linha + "\n";
