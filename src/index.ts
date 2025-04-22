@@ -70,33 +70,40 @@ function AStar(start: CurrentNode, chegada: CurrentNode, mapa: number[][]): Curr
     return [];
 }
 
+function printarMapa(mapa: number[][], robo: { x: number, y: number }, chegada: { x: number, y: number }) {
+    let tela = `Wall-e está correndo tentando evitar os lixos 😱\n\n`;
+
+    for (let i = 0; i < mapa.length; i++) {
+        let linha = "";
+        for (let j = 0; j < mapa[i].length; j++) {
+            if (i === chegada.x && j === chegada.y) {
+                linha += "🌱";
+            } else if (i === robo.x && j === robo.y) {
+                linha += "🤖";
+            } else {
+                linha += mapa[i][j] === 1 ? "🗑️" : "🟫";
+            }
+        }
+        tela += linha + "\n";
+    }
+
+    console.log(tela);
+}
+
 async function animarCaminho(caminho: CurrentNode[], mapa: number[][], chegada: CurrentNode) {
-    console.clear(); // Limpa antes de começar a animação
+    console.clear();
+
     for (let i = 0; i < caminho.length; i++) {
         const { x, y } = caminho[i];
 
-        let tela = `Procurando melhor caminho\n\n`;
-
-        for (let i = 0; i < mapa.length; i++) {
-            let linha = "";
-            for (let j = 0; j < mapa[i].length; j++) {
-                if (i === chegada.x && j === chegada.y) {
-                    linha += "🌸";
-                } else if (i === x && j === y) {
-                    linha += "🤖";
-                } else {
-                    linha += mapa[i][j] === 1 ? "🗑️" : "🍃";
-                }
-            }
-            tela += linha + "\n";
-        }
-
-        console.log(tela);
-        await sleep(150); // Mais suave
-        process.stdout.write("\x1B[0f"); // Move o cursor pro topo sem limpar tudo
+        printarMapa(mapa, { x, y }, chegada);
+        await sleep(150);
+        process.stdout.write("\x1B[0f");
     }
 
-    console.log("\n✅ Robô chegou na flor!");
+    console.clear();
+    printarMapa(mapa, chegada, chegada);
+    console.log("Wall-e chegou na plantinha, ebaaa");
 }
 
 async function main() {
