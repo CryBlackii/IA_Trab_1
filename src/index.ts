@@ -81,7 +81,7 @@ function printarMapa(mapa: number[][], robo: { x: number, y: number }, chegada: 
             } else if (i === robo.x && j === robo.y) {
                 linha += "🤖";
             } else {
-                linha += mapa[i][j] === 1 ? "🗑️" : "🟫";
+                linha += mapa[i][j] === 1 ? "🗑️ " : "🟫";
             }
         }
         tela += linha + "\n";
